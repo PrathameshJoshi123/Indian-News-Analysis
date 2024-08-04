@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BarChart from './BarChart';
 import { useNavigate } from 'react-router-dom';
-
+import '../css/ChannelAnalysis.css'; // Import the CSS file
+import Navbar from './Navbar';
+import Barcharthori from './Barcharthori';
 
 const Channel = () => {
     const [channel, setChannel] = useState([]);
@@ -55,35 +57,48 @@ const Channel = () => {
 
     return (
         <>
-        <center><p class="h1">Channel Analysis</p>  </center>
-
-         <table class="table table-dark table-striped">
-            
-            <thead>
-                <tr>
-                <th scope="col"></th>
-                <th scope="col">Channel</th>
-                <th scope="col">Sentiment</th>
-                <th scope="col">Views</th>
-                <th scope="col">Subscribers</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {channel.map((item, index) => (
-                            <tr key={index}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{item.Channel}</td> 
-                                <td>{item.Sentiment}</td> 
-                                <td>{item.Views}</td> 
-                                <td>{item.Subscribers}</td> 
-                                <td><button type="button" class="btn btn-outline-info" onClick={() => openChannelPage(item.Channel)}>Info</button></td> 
-                            </tr>
-                        ))}
-            </tbody>
+            <Navbar/>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className="center-text">
+                <p className="h1 title">Channel Analysis</p>
+            </div>
+    
+            <table className="table table-light table-striped table-light-custom">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Channel <i className="fa-solid fa-tv"></i></th>
+                        <th scope="col">Sentiment <i className="fa-solid fa-percent"></i></th>
+                        <th scope="col">Views <i className="fa-solid fa-eye"></i></th>
+                        <th scope="col">Subscribers <i className="fa-solid fa-users"></i></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {channel.map((item, index) => (
+                        <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{item.Channel}</td>
+                            <td className='barcharthori'>{item.Sentiment} <Barcharthori Positive={item.Positive} Negative={item.Negative}/> </td>
+                            <td>{item.Views}</td>
+                            <td>{item.Subscribers}</td>
+                            <td>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-dark" 
+                                    onClick={() => openChannelPage(item.Channel)} 
+                                    style={{ borderColor: '#343a40', color: '#211e1e' }}
+                                >
+                                    Info <i className="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
-            
-
+    
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '50px' }}>
 
                 <div style={{flex:1}}>
@@ -96,8 +111,8 @@ const Channel = () => {
                     <BarChart data={chartSubData} label1="Subscribers"/>
                 </div>
             </div>
-            </>
+        </>
     );
-  }
+}
   
   export default Channel;
