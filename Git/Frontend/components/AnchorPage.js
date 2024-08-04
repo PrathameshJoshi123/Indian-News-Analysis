@@ -1,70 +1,9 @@
-// import React from 'react';
-// import axios from 'axios';
-// import { Doughnut } from 'react-chartjs-2';
-// import { useParams } from 'react-router-dom';
-
-// const AnchorPage = async() => {
-//     const { anchorName } = useParams
-
-//     const response = await axios.get(`http://localhost:4000/anchor/getAnchor/${anchorName}`);
-    
-
-//     // Example data for Chart.js doughnut chart
-//     const chartData = {
-//         labels: ['Label 1', 'Label 2', 'Label 3'],
-//         datasets: [{
-//             label: 'Dataset',
-//             data: [30, 40, 30],
-//             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-//             hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-//             borderWidth: 1,
-//         }],
-//     };
-
-//     return (
-//         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-//             <div style={{ flex: 1, textAlign: 'center', position: 'relative' }}>
-//                 <Doughnut data={chartData} options={{ cutout: '80%' }} />
-//                 <img
-//                     src={response.data.Img}
-//                     alt={response.data.Anchor}
-//                     style={{
-//                         position: 'absolute',
-//                         left: '50%',
-//                         top: '50%',
-//                         transform: 'translate(-50%, -50%)',
-//                         maxWidth: '50%',
-//                         maxHeight: '50%',
-//                         zIndex: 10,
-//                     }}
-//                 />
-//             </div>
-
-//             {/* Right side: Anchor Info */}
-//             <div style={{ flex: 1 }}>
-//                 (
-//                     <div>
-//                         <h2>{response.data.Anchor}</h2>
-//                         <ul class="list-group list-group-flush">
-//                             <li class="list-group-item">Channel: {response.data.Channel}</li>
-//                             <li class="list-group-item">Views: {response.data.Views}</li>
-//                             <li class="list-group-item">Instagram: {response.data.insta}</li>
-//                             <li class="list-group-item">Twitter: {response.data.twitter}</li>
-//                         </ul>
-//                         {/* Display more anchor information as needed */}
-//                     </div>
-//                 )
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default AnchorPage;
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Doughnut } from 'react-chartjs-2';
 import { useParams } from 'react-router-dom';
+import Navbar from './Navbar';
+import '../css/AnchorPage.css'; // Import the CSS file
 
 const AnchorPage = () => {
     const { anchorName } = useParams();
@@ -92,7 +31,6 @@ const AnchorPage = () => {
         fetchAnchorData();
     }, [anchorName]);
 
-
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -107,46 +45,41 @@ const AnchorPage = () => {
         datasets: [{
             label: 'Sentiment Analysis',
             data: [anchorData[0].Positive, anchorData[0].Negative],
-            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-            hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+            backgroundColor: ['#36A2EB', '#FF6384'],
+            hoverBackgroundColor: ['#36A2EB', '#FF6384'],
             borderWidth: 1,
         }],
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ flex: 1, textAlign: 'center', position: 'relative' }}>
-                <Doughnut data={chartData} options={{ cutout: '80%' }} />
-                <img
-                    src={anchorData[0].Image} 
-                    alt={anchorData[0].Anchor}
-                    style={{
-                        position: 'absolute',
-                        left: '50%',
-                        top: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        maxWidth: '50%',
-                        maxHeight: '50%',
-                        zIndex: 10,
-                    }}
-                />
-            </div>
-
-            {/* Right side: Anchor Info */}
-            <div style={{ flex: 1 }}>
-                <div>
+        <>
+            <Navbar />
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className="anchor-page-container">
+                {/* Left side: Chart and Image */}
+                <div className="chart-container">
+                    <Doughnut data={chartData} options={{ cutout: '80%' }} />
+                    <img
+                        src={anchorData[0].Image}
+                        alt={anchorData[0].Anchor}
+                        className="chart-image"
+                    />
+                </div>
+                {/* Right side: Anchor Info */}
+                <div className="anchor-info">
                     <h2>{anchorData[0].Anchor}</h2>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Channel: {anchorData[0].Channel}</li>
-                        <li className="list-group-item">Views: {anchorData[0].Views}</li>
-                        <li className="list-group-item">Education: {anchorData[0].Education} </li>
-                        <li className="list-group-item">Instagram: <a href={anchorData[0].Instagram}>{anchorData[0].Instagram}</a></li>
-                        <li className="list-group-item">Twitter: <a href={anchorData[0].Twitter}>{anchorData[0].Twitter}</a></li>
+                        <li className="list-group-item"><strong>Channel:</strong> {anchorData[0].Channel}</li>
+                        <li className="list-group-item"><strong>Views:</strong> {anchorData[0].Views}</li>
+                        <li className="list-group-item"><strong>Education:</strong> {anchorData[0].Education}</li>
+                        <li className="list-group-item"><strong>Instagram:</strong> <a href={anchorData[0].Instagram} target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram" style={{ fontSize: '24px', color: '#E4405F', marginLeft: '10px' }}></i></a></li>
+                        <li className="list-group-item"><strong>Twitter:</strong> <a href={anchorData[0].Twitter} target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter" style={{ fontSize: '24px', color: '#1DA1F2', marginLeft: '10px' }}></i></a></li>
                     </ul>
-                    {/* Display more anchor information as needed */}
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
