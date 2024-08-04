@@ -427,6 +427,7 @@ const ChannelPage = () => {
         return (
           typeof an.Category === 'string' &&
           typeof an.Anchor === 'string' &&
+          typeof an.Title === 'string' && 
           (
             an.Anchor.toLowerCase().includes(searchTerm.toLowerCase()) ||
             an.Category.toLowerCase().includes(searchTerm.toLowerCase()) ||
