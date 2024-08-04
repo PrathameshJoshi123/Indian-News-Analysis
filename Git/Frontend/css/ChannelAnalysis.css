@@ -1,0 +1,96 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+.center-text {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.table-custom {
+    margin: 0 auto;
+    width: 90%;
+    background-color: #343a40;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    border: none;
+}
+
+.table-custom thead th {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.table-custom tbody tr {
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+}
+
+.table-custom tbody tr:hover {
+    background-color: #555;
+}
+
+.table-custom th,
+.table-custom td {
+    padding: 15px;
+    border: none;
+}
+
+.btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.subtitle {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-section {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .table-custom {
+        width: 100%;
+    }
+}
+
+.table-light-custom {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.table-light-custom th, 
+.table-light-custom td {
+    border-color: #dee2e6;
+}

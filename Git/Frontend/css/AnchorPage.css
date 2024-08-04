@@ -1,0 +1,58 @@
+.anchor-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+}
+
+.chart-container {
+    position: relative;
+    width: 800px;
+    height: 500px;
+}
+
+.chart-container .chart-image {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    width: 45%;
+    height: 55%;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 1;
+    padding-left: 5px;
+}
+
+.anchor-info {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.anchor-info h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.list-group-item {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #dee2e6;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.list-group-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.list-group-item a:hover {
+    text-decoration: underline;
+}

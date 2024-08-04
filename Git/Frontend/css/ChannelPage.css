@@ -1,0 +1,245 @@
+.channel-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.channel-info:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.channel-image img {
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border: 3px solid #4CAF50;
+}
+
+.channel-details {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.channel-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 3px solid #4CAF50;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.channel-details .list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.channel-details .list-group-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    color: #666;
+    transition: background-color 0.3s ease;
+}
+
+.channel-details .list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+.channel-details .list-group-item a {
+    margin-left: 10px;
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.channel-details .list-group-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.channel-details .fab {
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .channel-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .channel-details {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .channel-details .list-group-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .channel-details .list-group-item a {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .channel-details .fab {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
+.list-group-item {
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+}
+
+.social-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.hr-blurry {
+    border: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.videos-container {
+    max-height: 500px;
+    overflow-y: scroll;
+    margin: 20px 0;
+}
+
+.video-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.video-thumbnail {
+    width: 350px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    margin-left: 300px;
+    border: 2px solid #ddd;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 15px;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.video-thumbnail img {
+    width: 300px;
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.video-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0px;
+}
+
+.video-title {
+    font-family: 'Georgia', serif;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.video-views {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.video-meta {
+    display: flex;
+    gap: 10px;
+}
+
+.video-meta .card, .video-meta  {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.video-meta .card-title {
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.btn {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ddd;
+    background-color: #ddd;
+}
+
+.card {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    flex: 1;
+    margin: 5px;
+}
+
+.card-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+.video-category,
+.video-anchor {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination-nav {
+    text-align: center;
+}
+
+.page-item.disabled .page-link {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+}
