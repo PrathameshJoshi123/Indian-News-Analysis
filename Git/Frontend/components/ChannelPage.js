@@ -349,13 +349,11 @@
 
 // export default ChannelPage;
 
-
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import '../css/ChannelPage.css'; // Import the CSS file
+import Navbar from './Navbar';
 
 
 const ChannelPage = () => {
@@ -365,6 +363,7 @@ const ChannelPage = () => {
     const [videos, setVideos] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
     
     const [error, setError] = useState(null);
 
@@ -420,102 +419,138 @@ const ChannelPage = () => {
     if (!channelData) {
         return <p>No data found.</p>;
     }
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value.toLowerCase()); 
+      };
+    
+      const filteredVideos = videos.filter((an) => {
+        return (
+          typeof an.Category === 'string' &&
+          typeof an.Anchor === 'string' &&
+          (
+            an.Anchor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            an.Category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            an.Title.toLowerCase().includes(searchTerm.toLowerCase())
+
+          )
+        );
+      });
 
     
     return (
         <>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ flex: 1, textAlign: 'center', position: 'relative' }}>
-                <img src={channelData[0].Image} alt={channelData[0].Channel} style={{maxHeight: '50%', maxWidth: '50%'}}/>
-            </div>
-
-            <div style={{ flex: 1 }}>
-                <div>
+            <Navbar/>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className="channel-info">
+                <div className="channel-image">
+                    <img src={channelData[0].Image} alt={channelData[0].Channel} />
+                </div>
+    
+                <div className="channel-details">
                     <h2>{channelData[0].Channel}</h2>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Subscribers: {channelData[0].Subscribers}</li>
                         <li className="list-group-item">Views: {channelData[0].Views}</li>
-                        <li className="list-group-item">YouTube: <a href={channelData[0].Youtube}>{channelData[0].Youtube}</a><img  src="https://static.vecteezy.com/system/resources/previews/018/930/572/non_2x/youtube-logo-youtube-icon-transparent-free-png.png" width="25" height="25" /></li>
-                        <li className="list-group-item">Instagram: <a href={channelData[0].Instagram}>{channelData[0].Instagram}</a> <img  src="https://i.pinimg.com/736x/30/8b/49/308b4978318a5ac83e6b128c32504742.jpg" width="25" height="25" /></li>
-                        <li className="list-group-item">Twitter: <a href={channelData[0].Twitter}>{channelData[0].Twitter}</a><img  src="https://t3.ftcdn.net/jpg/06/29/22/40/360_F_629224066_zdnJIKaJHiMkP6EOIoh6hvUxcnFpsbE1.jpg" width="25" height="25" /></li>
-                        <li className="list-group-item">WhatsApp Channel: <a href={channelData[0].Whatsapp}>{channelData[0].Whatsapp}</a><img  src="https://thumbs.dreamstime.com/b/whatsapp-icon-illustration-whatsapp-app-logo-social-media-icon-whatsapp-icon-illustration-whatsapp-app-logo-social-media-icon-305513225.jpg" width="25" height="25" /></li>
+                        <li className="list-group-item">
+                            YouTube: <a href={channelData[0].Youtube} target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-youtube" style={{ fontSize: '24px', color: '#FF0000', marginLeft: '10px' }}></i>
+            </a>
+                            {/* <img className="social-icon" src="https://static.vecteezy.com/system/resources/previews/018/930/572/non_2x/youtube-logo-youtube-icon-transparent-free-png.png" alt="YouTube" /> */}
+                        </li>
+                        <li className="list-group-item">
+            Instagram: 
+            <a href={channelData[0].Instagram} target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-instagram" style={{ fontSize: '24px', color: '#E4405F', marginLeft: '10px' }}></i>
+            </a>
+        </li>
+        <li className="list-group-item">
+            Twitter: 
+            <a href={channelData[0].Twitter} target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-twitter" style={{ fontSize: '24px', color: '#1DA1F2', marginLeft: '10px' }}></i>
+            </a>
+        </li>
+        <li className="list-group-item">
+            WhatsApp Channel: 
+            <a href={channelData[0].Whatsapp} target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-whatsapp" style={{ fontSize: '24px', color: '#25D366', marginLeft: '10px' }}></i>
+            </a>
+        </li>
                         <li className="list-group-item">Website: <a href={channelData[0].Website}>{channelData[0].Website}</a></li>
                     </ul>
                 </div>
             </div>
-        </div>
+    
+            <hr className="hr-blurry" />
+    
+            <div className="videos-container">
+    <h1 className='text-center'>Videos</h1>
 
-        <hr class="hr hr-blurry" />
-        
-        <div className="container" style={{ maxHeight: '500px', overflowY: 'scroll' }}>
-            <h1 className='text-center mt-3 mb-3' style={{position: 'sticky'}}>Videos</h1>
-            
-                <ul className="list-group list-group-flush" >    
-                    {videos.map((video, index) => 
-                        video.Anchor !== 'Unknown' &&(
-                        <li className="list-group-item" >
-                            <div className='mb-3' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <div style={{ flex: 1, textAlign: 'center', position: 'relative'   }}>
-                                    <img src={`https://img.youtube.com/vi/${video.ID}/maxresdefault.jpg`} alt={video.Title} style={{maxHeight: '50%', maxWidth: '50%'}}/>
-                                </div>
+    <div className="search-container">
+                    <input
+                        className="search-bar"
+                        type="text"
+                        placeholder="Search...."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
 
-                                <div style={{ flex: 1 }}>
-                                    <div>
-                                        
-                                        <h5>{video.Title}</h5>
-                                        <p>Views: {video.Views}</p>
-                                        {/* <button type="button" class="btn btn-primary" onClick={`https://www.youtube.com/watch?v=${video.ID}`}>Watch on Youtube</button>    */}
-                                        <a class="btn btn-primary mb-3" href={`https://www.youtube.com/watch?v=${video.ID}`} role="button" target='_blank'>Watch on Youtube</a>
-                                        </div>
-                                        <div class="card text-bg-warning mb-3" style={{maxWidth: 150}}>  
-                                          <h5 class="card-title text-center">{video.Category}</h5>
-                                        </div>
-                                        <div class="card text-bg-secondary mb-3" style={{maxWidth: 150}}>
-                                            <h5 class="card-title text-center">{video.Anchor}</h5>
-                                        </div>
-                                    
-                                       
+    <ul className="list-group list-group-flush">
+        {filteredVideos.map((video, index) =>
+            video.Anchor !== 'Unknown' && video.Anchor !== 'stored-face-0-0' && (
+                <li className="list-group-item" key={index}>
+                    <div className='video-item'>
+                        <div className='video-thumbnail'>
+                            <img src={`https://img.youtube.com/vi/${video.ID}/maxresdefault.jpg`} alt={video.Title} width={2000} height={100} />
+                        </div>
+
+                        <div className='video-details'>
+                            <h5 className='video-title'>{video.Title}</h5>
+                            <p className='video-views'>Views: {video.Views}</p>
+                            <div className='video-meta'>
+                                <a className="btn btn-primary" href={`https://www.youtube.com/watch?v=${video.ID}`} role="button" target='_blank'>Watch on YouTube  <i class="fa-brands fa-youtube"></i></a>
+                                    <div className="card text-bg-warning video-category">
+                                        <h5 className="card-title">{video.Category}  <i class="fa-solid fa-list"></i></h5>
+                                    </div>
+                                <div className="card text-bg-secondary video-anchor">
+                                    <h5 className="card-title">{video.Anchor}  <i class="fa-solid fa-user"></i></h5>
                                 </div>
                             </div>
-                        </li>
-                    ))}
-                </ul>
-                <nav>
-                    <ul className="pagination">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(1)}>
-                        First
-                        </button>
-                    </li>
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
-                        Prev
-                        </button>
-                    </li>
-                    {[...Array(totalPages)].map((_, index) => (
-                        <li key={index + 1} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(index + 1)}>
-                            {index + 1}
-                        </button>
-                        </li>
-                    ))}
-                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
-                        Next
-                        </button>
-                    </li>
-                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(totalPages)}>
-                        Last
-                        </button>
-                    </li>
-                    </ul>
-                </nav>
-                </div>
-        
-        
+                        </div>
+                    </div>
+                </li>
+            )
+        )}
+    </ul>
+
+    <nav className="pagination-nav">
+        <ul className="pagination">
+            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button className="page-link" onClick={() => handlePageChange(1)}>First</button>
+            </li>
+            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>Prev</button>
+            </li>
+            {[...Array(totalPages)].map((_, index) => (
+                <li key={index + 1} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+                    <button className="page-link" onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
+                </li>
+            ))}
+            <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+            </li>
+            <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <button className="page-link" onClick={() => handlePageChange(totalPages)}>Last</button>
+            </li>
+        </ul>
+    </nav>
+</div>
+
         </>
     );
+    
 };
 
 export default ChannelPage;
