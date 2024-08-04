@@ -94,3 +94,8 @@ body {
 .table-light-custom td {
     border-color: #dee2e6;
 }
+.barcharthori{
+    padding-right: 200px;
+    width: 20px;
+    height: 15px;
+}
